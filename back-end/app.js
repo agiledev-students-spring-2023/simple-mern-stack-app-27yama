@@ -40,7 +40,25 @@ app.get('/messages', async (req, res) => {
   }
 })
 
-// a route to handle fetching a single message by its id
+app.get('/AboutUs', async (req, res) => {
+  try{
+    const para = 'My name is Junhyuk Lee and I am a senior majoring in computer science here in New York University. I selected computer science as my major because of my interest in algorithmic problem solving. I am not too experienced with the development side of computer science, but I am hoping to gain more experience in that field through this course!'
+    const image = 'https://i.ibb.co/HnWCRNw/IMG-0513.jpg'
+    res.json({
+        para: para,
+        image: image,
+        status: 'all good',
+      })
+  }
+    catch (err) {
+      console.error(err)
+      return res.status(400).json({
+        error: err,
+        status: 'failed retrieve data from database',
+      })
+    }
+})
+
 app.get('/messages/:messageId', async (req, res) => {
   // load all messages from database
   try {
@@ -53,10 +71,11 @@ app.get('/messages/:messageId', async (req, res) => {
     console.error(err)
     res.status(400).json({
       error: err,
-      status: 'failed to retrieve messages from the database',
+      status: 'failed to retrieve about us from the database',
     })
   }
 })
+
 // a route to handle logging out users
 app.post('/messages/save', async (req, res) => {
   // try to save the message to the database
